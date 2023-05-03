@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: clash-bot-event-consumer
+  cloud:
+    stream:
+      bindings:
+        teamEvents-in-0:
+          destination: clashBotTeamEvent
+          content-type: application/json
+          consumer:
+            concurrency: 3
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+      probes:
+        enabled: true
+  health:
+    binders:
+      enabled: true
+cloud:
+  aws:
+    stack:
+      auto: false
+aws:
+  endpoint-configuration:
+    url: http://host.docker.internal:4566
+    signingRegion: us-east-1
+clash-bot:
+  event-stream:
+    url: ${CLASH_BOT_STREAM_URL}
+logging:
+  level:
+    root: ERROR
+    com.poss: INFO

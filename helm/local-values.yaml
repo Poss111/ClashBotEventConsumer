@@ -1,0 +1,7 @@
+service:
+  springProfile: local
+  port: 8080
+
+clashBot:
+  eventStream:
+    url: http://clash-bot-event-stream:8080
