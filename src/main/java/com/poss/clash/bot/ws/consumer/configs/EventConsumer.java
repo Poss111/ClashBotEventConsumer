@@ -22,10 +22,9 @@ public class EventConsumer {
 
     @Bean
     Consumer<Event> teamEvents() {
-        log.info("Registered.");
         return str -> {
-            log.info("Event: {}", str);
-            webClient
+            log.trace("Event: {}", str);
+            String errorResponse = webClient
                     .post()
                     .uri("/invoke")
                     .bodyValue(str)
@@ -39,6 +38,7 @@ public class EventConsumer {
                                     .flatMap(Mono::error);
                         }
                     })
+                    .log()
                     .block(Duration.of(5, ChronoUnit.SECONDS));
         };
     }
