@@ -29,13 +29,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Gradle build
-        working-directory: ClashBotEventConsumer
+        working-directory: ./ClashBotEventConsumer
         run: |
           ls -lha
           CI=true ./gradlew clean build
 
       - uses: actions/upload-artifact@v3
-        working-directory: ClashBotEventConsumer
+        working-directory: ./ClashBotEventConsumer
         with:
           name: jar
           path: build/libs
