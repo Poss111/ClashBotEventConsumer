@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        teamEvents-in-0:
+          destination: clashBotTeamEvent
+          content-type: application/json
+          consumer:
+            concurrency: 3
+cloud:
+  aws:
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    credentials:
+      access-key: local
+      secret-key: local
+aws:
+  endpoint-configuration:
+    url: http://localhost:4566
+    signingRegion: us-east-1
+logging:
+  level:
+    root: ERROR
+    com.poss: INFO

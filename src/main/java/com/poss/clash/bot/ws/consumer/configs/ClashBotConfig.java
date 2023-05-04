@@ -25,12 +25,12 @@ public class ClashBotConfig {
 
     @Bean
     WebClient webClient() {
-        log.info("Using url for Clash Bot Event stream {}...", clashBotEventStreamProperties.getUrl());
+        log.debug("Using url for Clash Bot Event stream {}...", clashBotEventStreamProperties.getUrl());
         return WebClient.create(clashBotEventStreamProperties.getUrl());
     }
 
     @Bean
-    @Profile("local")
+    @Profile("local || k8s")
     AmazonKinesisAsync amazonKinesis(AWSCredentialsProvider awsCredentialsProvider) {
         log.info("Instantiating local stack Kinesis connection {}...", awsEndpointConfiguration);
         return AmazonKinesisAsyncClientBuilder
@@ -44,7 +44,7 @@ public class ClashBotConfig {
     }
 
     @Bean
-    @Profile("local")
+    @Profile("local || k8s")
     AmazonDynamoDBAsync amazonDynamoDBAsync(AWSCredentialsProvider awsCredentialsProvider) {
         log.info("Instantiating local stack DynamoDb connection {}...", awsEndpointConfiguration);
         return AmazonDynamoDBAsyncClientBuilder
